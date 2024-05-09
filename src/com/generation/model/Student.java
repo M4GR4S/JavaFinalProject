@@ -67,14 +67,13 @@ public class Student
     }
 
     @Override
-    public List<Course> getApprovedCourses()
-    {
+    public List<Course> getApprovedCourses() {
         //TODO implement this method
-        List<Course> Approved = new ArrayList<>();
-        for (String key : approvedCourses.keySet()) {
-            Approved.add(approvedCourses.get(key));
-        }
-        return Approved;
+        List<Course> courseList = new ArrayList<>();
+        approvedCourses.forEach((courseCode, course) -> {
+            courseList.add(course);
+        });
+        return courseList;
     }
 
     @Override

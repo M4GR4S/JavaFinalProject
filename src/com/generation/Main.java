@@ -97,7 +97,7 @@ public class Main
             String courseId = scanner.next();
 
             System.out.println("Enter credits --> ");
-            double credits = scanner.nextDouble();
+            int credits = scanner.nextInt();
 
             if(student.isAttendingCourse(courseId) && student.isCourseApproved(courseId)){
                 for(Course course : student.getApprovedCourses()){
