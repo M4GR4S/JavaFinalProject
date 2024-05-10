@@ -11,16 +11,4 @@ class CourseServiceTest {
     @Test
     void getCourse() {
     }
-
-    @Test
-    void enrollStudent() {
-    }
-
-    @Test
-    void showEnrolledStudents() {
-    }
-
-    @Test
-    void showSummary() {
-    }
 }

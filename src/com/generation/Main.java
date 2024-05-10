@@ -86,37 +86,79 @@ public class Main
         studentService.showSummary();
     }
 
-    private static void gradeStudent( StudentService studentService, Scanner scanner )
-    {
-        System.out.println("Enter Student Id --> ");
+//    private static void gradeStudent( StudentService studentService, Scanner scanner )
+//    {
+//        System.out.println("Enter Student Id --> ");
+//        String studentId = scanner.next();
+//
+//        if(studentService.isSubscribed(studentId)){
+//            Student student = studentService.findStudent(studentId);
+//            System.out.println("Enter the courseId --> ");
+//            String courseId = scanner.next();
+//
+//            System.out.println("Enter credits --> ");
+//            int credits = scanner.nextInt();
+//
+//            if(student.isAttendingCourse(courseId) && student.isCourseApproved(courseId)){
+//                for(Course course : student.getApprovedCourses()){
+//                    if(Objects.equals(course.getCode(), courseId)){
+//                        System.out.println("student " + studentId + " awarded " + credits + " credits for course ID " + courseId);
+//                        if(credits >= course.getCredits()) {
+//                            student.findPassedCourses(course);
+//                            System.out.println("Student has passed the subject");
+//                        }else{
+//                            System.out.println("Not Enough Credits to pass the subject.");
+//                        }
+//                    }
+//                }
+//            }else{
+//                System.out.println("Not enrolled in this course or course is not approved.");
+//            }
+//
+//        }else{
+//            System.out.println("Student is not subscribed.");
+//        }
+//
+//    }
+
+    private static void gradeStudent(StudentService studentService, Scanner scanner) {
+        // Find student. use findStudent in student ervice
+        // if student is found. Check against the approvedCourses
+        // scanner to ask which course they want to grade
+        // Obtain the course from courseService, Verify the course exits in courseService
+        // Take course code from course and check if student isAttendingCourse (student.isAttendingCourse) returns true(is found in approvedCourses)
+        // Prompt user(scanner) to enter grade
+        // else tell user course not found with the student
+        int grade = 0;
+
+        System.out.println("Insert student ID: ");
         String studentId = scanner.next();
+        Student student = studentService.findStudent(studentId);
 
-        if(studentService.isSubscribed(studentId)){
-            Student student = studentService.findStudent(studentId);
-            System.out.println("Enter the courseId --> ");
-            String courseId = scanner.next();
+        // If student is found
+        if (student != null) {
+            System.out.println("Grading: " + student + "\n");
 
-            System.out.println("Enter credits --> ");
-            int credits = scanner.nextInt();
-
-            if(student.isAttendingCourse(courseId) && student.isCourseApproved(courseId)){
-                for(Course course : student.getApprovedCourses()){
-                    if(Objects.equals(course.getCode(), courseId)){
-                        System.out.println("student " + studentId + " awarded " + credits + " credits for course ID " + courseId);
-                        if(credits >= course.getCredits()) {
-                            student.findPassedCourses(course);
-                            System.out.println("Student has passed the subject");
-                        }else{
-                            System.out.println("Not Enough Credits to pass the subject.");
-                        }
-                    }
+            // If student has enrolled into course(s)
+            if (!student.getApprovedCourses().isEmpty()) {
+                System.out.println("Course(s) enrolled:");
+                for (Course course : student.getApprovedCourses()) {
+                    System.out.println(course);
                 }
-            }else{
-                System.out.println("Not enrolled in this course or course is not approved.");
-            }
+                System.out.println("\nInsert course code to grade: ");
+                String courseCode = scanner.next();
+                CourseService courseService = new CourseService();
+                Course course = courseService.getCourse(courseCode);
 
-        }else{
-            System.out.println("Student is not subscribed.");
+                // If student is attending the course to be graded
+                if(student.isAttendingCourse(courseCode)){
+                    System.out.println("Please enter grade");
+                    grade = scanner.nextInt();
+                }else {
+                    System.out.println("Student is not attending this course");
+                    return;
+                }
+            }
         }
 
     }

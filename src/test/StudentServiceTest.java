@@ -1,24 +1,14 @@
 package test;
 
+import org.junit.jupiter.api.Test;
+
 class StudentServiceTest {
 
-    @org.junit.jupiter.api.Test
+    @Test
     void subscribeStudent() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void findStudent() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void isSubscribed() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void showSummary() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void enrollToCourse() {
     }
 }
