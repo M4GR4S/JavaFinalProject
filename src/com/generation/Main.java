@@ -130,7 +130,6 @@ public class Main
         // Prompt user(scanner) to enter grade
         // else tell user course not found with the student
         int grade = 0;
-
         System.out.println("Insert student ID: ");
         String studentId = scanner.next();
         Student student = studentService.findStudent(studentId);
@@ -152,9 +151,14 @@ public class Main
 
                 // If student is attending the course to be graded
                 if(student.isAttendingCourse(courseCode)){
-                    System.out.println("Please enter grade");
-                    grade = scanner.nextInt();
-                }else {
+
+                    // Do while loop that will loop if user enters a grade not withing 0-100
+                    do {
+                        System.out.println("Please enter grade (0-100): ");
+                        grade = scanner.nextInt();
+                    } while (grade < 0 || grade > 100);
+
+                } else {
                     System.out.println("Student is not attending this course");
                     return;
                 }
@@ -162,6 +166,8 @@ public class Main
         }
 
     }
+
+
 
     private static void findStudent( StudentService studentService, Scanner scanner )
     {
